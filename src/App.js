@@ -1,21 +1,40 @@
+ 
+
 import React, { useState } from "react";
 
 export default function App() {
-  const products = [
-    { id: 1, name: "دراعة تقليدية فاخرة", price: 3500, image: "https://via.placeholder.com/250x250.png?text=دراعة+1" },
-    { id: 2, name: "دراعة عصرية", price: 4200, image: "https://via.placeholder.com/250x250.png?text=دراعة+2" },
-    { id: 3, name: "دراعة ملكية", price: 5200, image: "https://via.placeholder.com/250x250.png?text=دراعة+3" },
-  ];
-
+  // المنتجات الأساسية (يمكن تركها فارغة لأننا سنختار حسب التخصيص)
   const [cart, setCart] = useState([]);
 
-  const addToCart = (product) => {
-    const existing = cart.find(item => item.id === product.id);
-    if (existing) {
-      setCart(cart.map(item => item.id === product.id ? {...item, qty: item.qty + 1} : item));
-    } else {
-      setCart([...cart, {...product, qty: 1}]);
+  // حالات خيارات المنتج
+  const [type, setType] = useState("");
+  const [color, setColor] = useState("");
+  const [shape, setShape] = useState("");
+  const [stitch, setStitch] = useState("");
+  const [model, setModel] = useState("");
+
+  // مثال: أسعار حسب نوع الخنّاط
+  const prices = {
+    azbi: 3500,
+    gaznir: 4200,
+    basha: 5000,
+    afsninger: 4800,
+    other: 4000,
+  };
+
+  const handleAddToCart = () => {
+    if (!type || !color || !shape || !stitch) {
+      return alert("الرجاء اختيار جميع الخيارات قبل الإضافة للسلة!");
     }
+
+    const price = prices[type] || prices["other"];
+    const productName = `${type} - ${color} - ${stitch} - ${shape}`;
+
+    const newProduct = { id: Date.now(), name: productName, price, qty: 1 };
+    setCart([...cart, newProduct]);
+
+    // إعادة تعيين الخيارات بعد الإضافة
+    setType(""); setColor(""); setShape(""); setStitch(""); setModel("");
   };
 
   const updateQty = (id, qty) => {
@@ -37,20 +56,59 @@ export default function App() {
         <h1 style={{ color: "#0078b7" }}>🩵 متجر الدراعة الموريتانية 🩵</h1>
       </header>
 
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
-        <div style={{ flex: 3 }}>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
-            {products.map(p => (
-              <div key={p.id} style={{ background: "white", borderRadius: "10px", boxShadow: "0 2px 5px rgba(0,0,0,0.1)", padding: "10px", width: "230px", textAlign: "center" }}>
-                <img src={p.image} alt={p.name} style={{ width: "100%", borderRadius: "8px" }} />
-                <h3>{p.name}</h3>
-                <p style={{ color: "#555" }}>السعر: {p.price} MRU</p>
-                <button onClick={() => addToCart(p)} style={{ backgroundColor: "#0078b7", color: "white", border: "none", padding: "8px 10px", borderRadius: "5px", cursor: "pointer" }}>🛒 أضف إلى السلة</button>
-              </div>
+      <div style={{ display: "flex", gap: "20px" }}>
+        {/* قسم خيارات المنتج */}
+        <div style={{ flex: 3, background: "white", borderRadius: 10, padding: 15, boxShadow: "0 2px 5px rgba(0,0,0,0.1)" }}>
+          <h2>اختر نوع الخنّاط:</h2>
+          <select value={type} onChange={e => setType(e.target.value)}>
+            <option value="">-- اختر --</option>
+            <option value="azbi">أزبي</option>
+            <option value="gaznir">گازنير</option>
+            <option value="basha">الباشا</option>
+            <option value="afsninger">أفسنيگر</option>
+            <option value="other">أخنّاط عرض 160م/أجمان/أشگه</option>
+          </select>
+
+          <h2>اختر اللون:</h2>
+          <select value={color} onChange={e => setColor(e.target.value)}>
+            <option value="">-- اختر --</option>
+            <option value="white">أبيض</option>
+            <option value="green">أخضر</option>
+            <option value="sigeh">سيگه</option>
+            <option value="sigehMixed">سيگه أبلاه</option>
+          </select>
+
+          <h2>اختر الشكل:</h2>
+          <div style={{ display: "flex", flexWrap: "wrap" }}>
+            {[...Array(92)].map((_, i) => (
+              <img 
+                key={i}
+                src={`shapes/${i+1}.jpg`} 
+                alt={`شكل ${i+1}`}
+                onClick={() => setShape(`شكل ${i+1}`)}
+                style={{ width: 60, margin: 5, cursor: "pointer", border: shape === `شكل ${i+1}` ? "2px solid blue" : "1px solid gray" }}
+              />
             ))}
           </div>
+
+          <h2>اختر نوع الخياطة:</h2>
+          <select value={stitch} onChange={e => setStitch(e.target.value)}>
+            <option value="">-- اختر --</option>
+            <option value="damwa">داموا وتقلاگ</option>
+            <option value="simple">سيمبل</option>
+            <option value="lahbeel">لحبيل</option>
+            <option value="handmade">أخياطة للأيدي</option>
+          </select>
+
+          <h2>نماذج من الخياطة:</h2>
+          <div style={{ display: "flex", flexWrap: "wrap" }}>
+            {/* ضع صور النماذج هنا */}
+          </div>
+
+          <button onClick={handleAddToCart} style={{ marginTop: 10, backgroundColor: "#0078b7", color: "#fff", padding: "8px 12px", borderRadius: 5 }}>🛒 أضف إلى السلة</button>
         </div>
 
+        {/* قسم السلة */}
         <div style={{ flex: 1, background: "white", borderRadius: "10px", padding: "10px", boxShadow: "0 2px 5px rgba(0,0,0,0.1)" }}>
           <h2>🛍️ السلة ({cart.length})</h2>
           <ul style={{ listStyle: "none", padding: 0 }}>
