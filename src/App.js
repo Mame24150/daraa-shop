@@ -27,7 +27,7 @@ export default function App() {
   return (
     <div style={{ fontFamily: "Cairo, sans-serif", padding: 20, backgroundColor: "#eef6f9", minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
       {/* Header مع شعار المتجر */}
-      
+
      <header style={{
   textAlign: "center",
   marginBottom: 20,
@@ -48,7 +48,7 @@ export default function App() {
       objectFit: "cover"    // يحافظ على نسبة الصورة داخل الدائرة
     }}
   />
-  <h1>🩵 💎غـايتـك(𝒢𝒶𝒾𝓉𝒶𝓀)🩵</h1>
+  <h1>🩵 💎غـايتـك(𝒢𝒶𝒾𝓉𝒶𝓀)🩵 </h1>
 </header>
 
       {/* قسم الاختيارات */}
