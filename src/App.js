@@ -1,129 +1,165 @@
- 
-
 import React, { useState } from "react";
 
 export default function App() {
-  // المنتجات الأساسية (يمكن تركها فارغة لأننا سنختار حسب التخصيص)
-  const [cart, setCart] = useState([]);
-
-  // حالات خيارات المنتج
   const [type, setType] = useState("");
   const [color, setColor] = useState("");
   const [shape, setShape] = useState("");
   const [stitch, setStitch] = useState("");
-  const [model, setModel] = useState("");
+  const [highlighted, setHighlighted] = useState(null);
+  const [modalImage, setModalImage] = useState(null);
+  const [daraa, setDaraa] = useState(""); // الدراعة
+  const [deliveryType, setDeliveryType] = useState(""); // التوصيل أو الحضور
+  const [time, setTime] = useState(""); // المدة الزمنية
 
-  // مثال: أسعار حسب نوع الخنّاط
-  const prices = {
-    azbi: 3500,
-    gaznir: 4200,
-    basha: 5000,
-    afsninger: 4800,
-    other: 4000,
-  };
+  const merchantNumber = "46228085"; // رقم التاجر
 
-  const handleAddToCart = () => {
-    if (!type || !color || !shape || !stitch) {
-      return alert("الرجاء اختيار جميع الخيارات قبل الإضافة للسلة!");
+  const handleSendWhatsApp = () => {
+    if (!type || !color || !shape || !stitch || !daraa || !deliveryType || !time) {
+      return alert("الرجاء اختيار جميع الخيارات قبل الإرسال!");
     }
 
-    const price = prices[type] || prices["other"];
-    const productName = `${type} - ${color} - ${stitch} - ${shape}`;
+    const message = `🩵 تفاصيل الطلب:\n- الدراعة: ${daraa}\n- النوع: ${type}\n- اللون: ${color}\n- الشكل: ${shape}\n- نوع الخياطة: ${stitch}\n- طريقة الاستلام: ${deliveryType}\n- المدة الزمنية: ${time}\n\n📞 رقم التاجر: ${merchantNumber}`;
 
-    const newProduct = { id: Date.now(), name: productName, price, qty: 1 };
-    setCart([...cart, newProduct]);
-
-    // إعادة تعيين الخيارات بعد الإضافة
-    setType(""); setColor(""); setShape(""); setStitch(""); setModel("");
-  };
-
-  const updateQty = (id, qty) => {
-    setCart(cart.map(item => item.id === id ? {...item, qty} : item).filter(item => item.qty > 0));
-  };
-
-  const checkout = () => {
-    if (cart.length === 0) return alert("السلة فارغة!");
-    let summary = "تفاصيل الطلب:\n";
-    cart.forEach(item => summary += `- ${item.name} × ${item.qty} = ${item.price * item.qty} MRU\n`);
-    summary += `\nالمجموع الكلي: ${cart.reduce((a,b)=>a+b.price*b.qty,0)} MRU`;
-    alert(summary + "\n\n✅ تم إرسال الطلب، سنتواصل معك قريبًا!");
-    setCart([]);
+    const encodedMsg = encodeURIComponent(message);
+    window.open(`https://wa.me/222${merchantNumber}?text=${encodedMsg}`, "_blank");
   };
 
   return (
-    <div style={{ fontFamily: "Cairo, sans-serif", padding: "20px", backgroundColor: "#f8fafc" }}>
-      <header style={{ textAlign: "center", marginBottom: "20px" }}>
-        <h1 style={{ color: "#0078b7" }}>🩵 متجر الدراعة الموريتانية 🩵</h1>
+    <div style={{ fontFamily: "Cairo, sans-serif", padding: 20, backgroundColor: "#eef6f9", minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+      <header style={{ textAlign: "center", marginBottom: 20, backgroundColor: "#0078b7", color: "white", padding: 15, borderRadius: 10, boxShadow: "0 3px 6px rgba(0,0,0,0.2)" }}>
+        <h1>🩵 متجر الدراعة الموريتانية 🩵</h1>
       </header>
 
-      <div style={{ display: "flex", gap: "20px" }}>
-        {/* قسم خيارات المنتج */}
-        <div style={{ flex: 3, background: "white", borderRadius: 10, padding: 15, boxShadow: "0 2px 5px rgba(0,0,0,0.1)" }}>
-          <h2>اختر نوع الخنّاط:</h2>
-          <select value={type} onChange={e => setType(e.target.value)}>
+      {/* قسم الاختيارات */}
+      <div style={{ flex: 1 }}>
+        <div style={{ maxWidth: 600, margin: "0 auto", background: "white", borderRadius: 10, padding: 20, boxShadow: "0 2px 8px rgba(0,0,0,0.1)" }}>
+          
+          {/* اختيار الدراعة */}
+          <h2>اختر الدراعة:</h2>
+          <select value={daraa} onChange={e => setDaraa(e.target.value)} style={{ width: "100%", padding: 8, marginBottom: 15 }}>
             <option value="">-- اختر --</option>
-            <option value="azbi">أزبي</option>
-            <option value="gaznir">گازنير</option>
-            <option value="basha">الباشا</option>
-            <option value="afsninger">أفسنيگر</option>
-            <option value="other">أخنّاط عرض 160م/أجمان/أشگه</option>
+            <option value="دراعة 6م">دراعة 6م</option>
+            <option value="دراعة 7,5م">دراعة 7,5م</option>
+            <option value="دراعة 8م">دراعة 8م</option>
+            <option value="دراعة 9م">دراعة 9م</option>
+            <option value="دراعة 9,5م">دراعة 9,5م</option>
+            <option value="دراعة 10م">دراعة 10م</option>
+          </select>
+
+          <h2>اختر نوع الخنّاط:</h2>
+          <select value={type} onChange={e => setType(e.target.value)} style={{ width: "100%", padding: 8, marginBottom: 15 }}>
+            <option value="">-- اختر --</option>
+            <option value="أزبي">أزبي</option>
+            <option value="گازنير">گازنير</option>
+            <option value="الباشا">الباشا</option>
+            <option value="أفسنيگر">أفسنيگر</option>
+            <option value="أخنّاط عرض 160م/أجمان/أشگه">أخنّاط عرض 160م/أجمان/أشگه</option>
           </select>
 
           <h2>اختر اللون:</h2>
-          <select value={color} onChange={e => setColor(e.target.value)}>
+          <select value={color} onChange={e => setColor(e.target.value)} style={{ width: "100%", padding: 8, marginBottom: 15 }}>
             <option value="">-- اختر --</option>
-            <option value="white">أبيض</option>
-            <option value="green">أخضر</option>
-            <option value="sigeh">سيگه</option>
-            <option value="sigehMixed">سيگه أبلاه</option>
+            <option value="أبيض">أبيض</option>
+            <option value="أخضر">أخضر</option>
+            <option value="سيگه">سيگه</option>
+            <option value="سيگه أبلاه">سيگه أبلاه</option>
           </select>
 
           <h2>اختر الشكل:</h2>
-          <div style={{ display: "flex", flexWrap: "wrap" }}>
-            {[...Array(92)].map((_, i) => (
-              <img 
-                key={i}
-                src={`shapes/${i+1}.jpg`} 
-                alt={`شكل ${i+1}`}
-                onClick={() => setShape(`شكل ${i+1}`)}
-                style={{ width: 60, margin: 5, cursor: "pointer", border: shape === `شكل ${i+1}` ? "2px solid blue" : "1px solid gray" }}
-              />
-            ))}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+            {[...Array(92)].map((_, i) => {
+              const isHighlighted = highlighted === i;
+              return (
+                <img
+                  key={i}
+                  src={`${process.env.PUBLIC_URL}/shapes/${i+1}.jpg`}
+                  alt={`شكل ${i+1}`}
+                  onClick={() => { 
+                    setHighlighted(i); 
+                    setShape(`شكل ${i+1}`); 
+                    setModalImage(`${process.env.PUBLIC_URL}/shapes/${i+1}.jpg`);
+                  }}
+                  style={{
+                    width: isHighlighted ? 180 : 100,
+                    height: isHighlighted ? 180 : 100,
+                    objectFit: "cover",
+                    borderRadius: 10,
+                    cursor: "pointer",
+                    border: shape === `شكل ${i+1}` ? "3px solid #0078b7" : "1px solid gray",
+                    boxShadow: isHighlighted ? "0 0 20px #0078b7" : "none",
+                    transition: "0.2s",
+                  }}
+                />
+              );
+            })}
           </div>
+          {shape && <p style={{ marginTop: 10, fontWeight: "bold" }}>✅ الشكل المختار: {shape}</p>}
 
           <h2>اختر نوع الخياطة:</h2>
-          <select value={stitch} onChange={e => setStitch(e.target.value)}>
+          <select value={stitch} onChange={e => setStitch(e.target.value)} style={{ width: "100%", padding: 8, marginBottom: 15 }}>
             <option value="">-- اختر --</option>
-            <option value="damwa">داموا وتقلاگ</option>
-            <option value="simple">سيمبل</option>
-            <option value="lahbeel">لحبيل</option>
-            <option value="handmade">أخياطة للأيدي</option>
+            <option value="داموا وتقلاگ">داموا وتقلاگ</option>
+            <option value="سيمبل">سيمبل</option>
+            <option value="لحبيل">لحبيل</option>
+            <option value="أخياطة للأيدي">أخياطة للأيدي</option>
           </select>
 
-          <h2>نماذج من الخياطة:</h2>
-          <div style={{ display: "flex", flexWrap: "wrap" }}>
-            {/* ضع صور النماذج هنا */}
-          </div>
+          {/* اختيار طريقة التسليم */}
+          <h2>طريقة استلام الطلب:</h2>
+          <select value={deliveryType} onChange={e => setDeliveryType(e.target.value)} style={{ width: "100%", padding: 8, marginBottom: 15 }}>
+            <option value="">-- اختر --</option>
+            <option value="سوف يأتي لاستلامه بنفسه">سوف يأتي لاستلامه بنفسه</option>
+            <option value="يريد التوصيل">يريد التوصيل</option>
+          </select>
 
-          <button onClick={handleAddToCart} style={{ marginTop: 10, backgroundColor: "#0078b7", color: "#fff", padding: "8px 12px", borderRadius: 5 }}>🛒 أضف إلى السلة</button>
-        </div>
+          {/* المدة الزمنية */}
+          <h2>حدد المدة الزمنية (بالساعات أو الأيام):</h2>
+          <input
+            type="text"
+            placeholder="مثلاً: خلال 3 أيام"
+            value={time}
+            onChange={e => setTime(e.target.value)}
+            style={{ width: "100%", padding: 8, marginBottom: 20 }}
+          />
 
-        {/* قسم السلة */}
-        <div style={{ flex: 1, background: "white", borderRadius: "10px", padding: "10px", boxShadow: "0 2px 5px rgba(0,0,0,0.1)" }}>
-          <h2>🛍️ السلة ({cart.length})</h2>
-          <ul style={{ listStyle: "none", padding: 0 }}>
-            {cart.map(item => (
-              <li key={item.id} style={{ borderBottom: "1px solid #eee", padding: "5px 0" }}>
-                {item.name} × 
-                <input type="number" min="1" value={item.qty} style={{ width: "40px", margin: "0 5px" }} onChange={e=>updateQty(item.id, parseInt(e.target.value))} />
-                = {item.price*item.qty} MRU
-              </li>
-            ))}
-          </ul>
-          <p style={{ fontWeight: "bold", marginTop: "10px" }}>المجموع: {cart.reduce((a,b)=>a+b.price*b.qty,0)} MRU</p>
-          <button onClick={checkout} style={{ width: "100%", backgroundColor: "#00993f", color: "white", padding: "8px", borderRadius: "5px", marginTop: "10px" }}>إتمام الطلب</button>
+          <button
+            onClick={handleSendWhatsApp}
+            style={{ backgroundColor: "#0078b7", color: "#fff", padding: "12px 20px", borderRadius: 5, border: "none", cursor: "pointer", width: "100%", fontSize: 16 }}
+          >
+            🛒 أرسل الطلب للتاجر عبر WhatsApp
+          </button>
         </div>
       </div>
+
+      <footer style={{ textAlign: "center", marginTop: 30, padding: 15, backgroundColor: "#0078b7", color: "white", borderRadius: 10, boxShadow: "0 3px 6px rgba(0,0,0,0.2)" }}>
+        📞 رقم التاجر للتواصل: <span style={{ fontWeight: "bold", fontSize: 18 }}>{merchantNumber}</span>
+      </footer>
+
+      {/* نافذة تكبير الصورة */}
+      {modalImage && (
+        <div
+          onClick={() => setModalImage(null)}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(0,0,0,0.7)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 999,
+            cursor: "pointer",
+          }}
+        >
+          <img
+            src={modalImage}
+            alt="تكبير الشكل"
+            style={{ maxWidth: "80%", maxHeight: "80%", borderRadius: 10 }}
+          />
+        </div>
+      )}
     </div>
   );
 }
