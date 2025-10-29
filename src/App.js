@@ -1,24 +1,22 @@
 import React, { useState } from "react";
+
 const BASE_URL = "https://Mame24150.github.io/daraa-shop";
 
 export default function App() {
   const [type, setType] = useState("");
   const [color, setColor] = useState("");
-  const [shape, setShape] = useState("");
+  const [shape, setShape] = useState(""); // ما زلنا نخزنه داخليًا
   const [stitch, setStitch] = useState("");
   const [highlightedShape, setHighlightedShape] = useState(null);
   const [highlightedModel, setHighlightedModel] = useState(null);
   const [modalImage, setModalImage] = useState(null);
-  const [daraa, setDaraa] = useState(""); // الدراعة
-  const [deliveryType, setDeliveryType] = useState(""); // التوصيل أو الحضور
-  const [time, setTime] = useState(""); // المدة الزمنية
+  const [daraa, setDaraa] = useState("");
+  const [deliveryType, setDeliveryType] = useState("");
+  const [time, setTime] = useState("");
   const [shapeImageUrl, setShapeImageUrl] = useState("");
   const [modelImageUrl, setModelImageUrl] = useState("");
 
-  const merchantNumber = "20034958"; // ✅ رقم التاجر الجديد
-
-  // رابط GitHub Pages بعد النشر
-  const BASE_URL = "https://username.github.io/repo-name"; 
+  const merchantNumber = "44865953"; // رقم التاجر الجديد
 
   const handleSendWhatsApp = () => {
     if (!type || !color || !shape || !stitch || !daraa || !deliveryType || !time) {
@@ -29,7 +27,6 @@ export default function App() {
 - الدراعة: ${daraa}
 - النوع: ${type}
 - اللون: ${color}
-- الشكل: ${shape}
 - نوع الخياطة: ${stitch}
 - طريقة الاستلام: ${deliveryType}
 - المدة الزمنية: ${time}
@@ -45,47 +42,20 @@ ${modelImageUrl}`;
   };
 
   return (
-    <div
-      style={{
-        fontFamily: "Cairo, sans-serif",
-        padding: 20,
-        backgroundColor: "#eef6f9",
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-      }}
-    >
+    <div style={{ fontFamily: "Cairo, sans-serif", padding: 20, backgroundColor: "#eef6f9", minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+      
       {/* Header */}
-      <header
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: 20,
-          backgroundColor: "#0078b7",
-          color: "white",
-          padding: 15,
-          borderRadius: 10,
-          boxShadow: "0 3px 6px rgba(0,0,0,0.2)",
-        }}
-      >
-        <img
-          src={`${process.env.PUBLIC_URL}/logo.png`}
-          alt="شعار المتجر 1"
-          style={{ width: 80, height: 80, borderRadius: "50%", objectFit: "cover" }}
-        />
+      <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20, backgroundColor: "#0078b7", color: "white", padding: 15, borderRadius: 10, boxShadow: "0 3px 6px rgba(0,0,0,0.2)" }}>
+        <img src={`${process.env.PUBLIC_URL}/logo.png`} alt="شعار المتجر 1" style={{ width: 80, height: 80, borderRadius: "50%", objectFit: "cover" }} />
         <h1 style={{ textAlign: "center", flex: 1 }}>🩵 💎غـايتـك(𝒢𝒶𝒾𝓉𝒶𝓀)🩵</h1>
-        <img
-          src={`${process.env.PUBLIC_URL}/logo2.png`}
-          alt="شعار المتجر 2"
-          style={{ width: 80, height: 80, borderRadius: "50%", objectFit: "cover" }}
-        />
+        <img src={`${process.env.PUBLIC_URL}/logo2.png`} alt="شعار المتجر 2" style={{ width: 80, height: 80, borderRadius: "50%", objectFit: "cover" }} />
       </header>
 
-      {/* اختيار الدراعة */}
+      {/* Form Container */}
       <div style={{ flex: 1, maxWidth: 600, margin: "0 auto", background: "white", borderRadius: 10, padding: 20, boxShadow: "0 2px 8px rgba(0,0,0,0.1)" }}>
-        <h2>اختر الدراعه(𝓒𝓱𝓸𝓲𝓼𝓲𝓼𝓮𝔃 𝓵𝓪 𝓭𝓻𝓪𝓪ʿ𝓪🧵)</h2>
+        
+        {/* اختيار الدراعة */}
+        <h2>اختر الدراعه</h2>
         <select value={daraa} onChange={(e) => setDaraa(e.target.value)} style={{ width: "100%", padding: 8, marginBottom: 15 }}>
           <option value="">-- اختر --</option>
           <option value="دراعة 6م">دراعة 6م(6m)</option>
@@ -97,7 +67,7 @@ ${modelImageUrl}`;
         </select>
 
         {/* نوع الخنط */}
-        <h2>اختر نوع الخنط: (𝓱𝓸𝓲𝓼𝓲𝓼𝓮𝔃 𝓵𝓮 𝓽𝔂𝓹𝓮 𝓭𝓮 𝓴𝓱𝓷𝓪𝓽 ✨)</h2>
+        <h2>اختر نوع الخنط</h2>
         <select value={type} onChange={(e) => setType(e.target.value)} style={{ width: "100%", padding: 8, marginBottom: 15 }}>
           <option value="">-- اختر --</option>
           <option value="أزبي">أزبي(Azbi)</option>
@@ -110,12 +80,12 @@ ${modelImageUrl}`;
         </select>
 
         {/* اللون */}
-        <h2>اختر اللون:(𝓼𝓮𝓵𝓮𝓬𝓽𝓲𝓸𝓷𝓷𝓮𝔃 𝓵𝓪 𝓬𝓸𝓾𝓵𝓮𝓾𝓻 🎨)</h2>
+        <h2>اختر اللون</h2>
         <select value={color} onChange={(e) => setColor(e.target.value)} style={{ width: "100%", padding: 8, marginBottom: 15 }}>
           <option value="">-- اختر --</option>
-          <option value="أبيض">أبيض(Blanc)</option>
-          <option value="أخضر">أخضر(Vert)</option>
-          <option value="سيگه">سيگه(Bleu clair)</option>
+          <option value="أبيض">أبيض</option>
+          <option value="أخضر">أخضر</option>
+          <option value="سيگه">سيگه</option>
           <option value="سيگه أبلاه">سيگه أبلاه</option>
         </select>
 
@@ -141,7 +111,7 @@ ${modelImageUrl}`;
                   objectFit: "cover",
                   borderRadius: 10,
                   cursor: "pointer",
-                  border: shape === `شكل ${i + 1}` ? "3px solid #0078b7" : "1px solid gray",
+                  border: highlightedShape === i ? "3px solid #0078b7" : "1px solid gray",
                   boxShadow: isHighlighted ? "0 0 20px #0078b7" : "none",
                   transition: "0.2s",
                 }}
@@ -149,10 +119,9 @@ ${modelImageUrl}`;
             );
           })}
         </div>
-        {shape && <p style={{ marginTop: 10, fontWeight: "bold" }}>✅ الشكل المختار: {shape}</p>}
 
         {/* نوع الخياطة */}
-        <h2>اختر نوع الخياطة:(𝓒𝓱𝓸𝓲𝓼𝓲𝓼𝓮𝔃 𝓵𝓮 𝓽𝔂𝓹𝓮 𝓭𝓮 𝓬𝓸𝓾𝓽𝓾𝓻𝓮 ✂)</h2>
+        <h2>اختر نوع الخياطة</h2>
         <select value={stitch} onChange={(e) => setStitch(e.target.value)} style={{ width: "100%", padding: 8, marginBottom: 15 }}>
           <option value="">-- اختر --</option>
           <option value="داموا وتقلاگ">داموا وتقلاگ</option>
@@ -163,10 +132,8 @@ ${modelImageUrl}`;
 
         {/* نماذج الخياطة */}
         <h2 style={{ textAlign: "center", fontFamily: "'Pinyon Script', cursive", fontSize: "28px", color: "#0078b7", marginBottom: "20px" }}>
-          ✨ نماذج من الخياطة ✨ <br />
-          <span style={{ fontFamily: "'Caveat', cursive", fontSize: "24px" }}>(𝓜𝓸𝓭𝑒̀𝓵𝑒𝓼 𝓭𝓮 𝓬𝓸𝓾𝓽𝓾𝓻𝓮 🧶)</span>
+          ✨ نماذج من الخياطة ✨
         </h2>
-
         <div style={{ display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "center" }}>
           {[...Array(50)].map((_, i) => {
             const isHighlighted = highlightedModel === i;
@@ -196,7 +163,7 @@ ${modelImageUrl}`;
         </div>
 
         {/* طريقة الاستلام */}
-        <h2>طريقة استلام الطلب: (𝓜𝓮́𝓽𝓱𝓸𝓭𝓮 𝓭𝓮 𝓵𝓲𝓿𝓻𝓪𝓲𝓼𝓸𝓷 🚚)</h2>
+        <h2>طريقة استلام الطلب</h2>
         <select value={deliveryType} onChange={(e) => setDeliveryType(e.target.value)} style={{ width: "100%", padding: 8, marginBottom: 15 }}>
           <option value="">-- اختر --</option>
           <option value="سوف يأتي لاستلامه بنفسه">سوف استلمه بنفسي</option>
@@ -204,7 +171,7 @@ ${modelImageUrl}`;
         </select>
 
         {/* المدة الزمنية */}
-        <h2>حدد المدة الزمنية (بالساعات أو الأيام): (𝓓𝓮́𝓽𝓮𝓻𝓶𝓲𝓷𝓮𝔃 𝓵𝓮 𝓭𝓮́𝓵𝓪𝓲 ⏰)</h2>
+        <h2>حدد المدة الزمنية</h2>
         <input type="text" placeholder="مثلاً: خلال 3 أيام" value={time} onChange={(e) => setTime(e.target.value)} style={{ width: "100%", padding: 8, marginBottom: 20 }} />
 
         {/* زر الإرسال */}
