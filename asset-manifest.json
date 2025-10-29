@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/daraa-shop/static/css/main.e6c13ad2.css",
-    "main.js": "/daraa-shop/static/js/main.96240cfb.js",
+    "main.js": "/daraa-shop/static/js/main.24410736.js",
     "static/js/453.163f5420.chunk.js": "/daraa-shop/static/js/453.163f5420.chunk.js",
     "index.html": "/daraa-shop/index.html",
     "main.e6c13ad2.css.map": "/daraa-shop/static/css/main.e6c13ad2.css.map",
-    "main.96240cfb.js.map": "/daraa-shop/static/js/main.96240cfb.js.map",
+    "main.24410736.js.map": "/daraa-shop/static/js/main.24410736.js.map",
     "453.163f5420.chunk.js.map": "/daraa-shop/static/js/453.163f5420.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.96240cfb.js"
+    "static/js/main.24410736.js"
   ]
 }
