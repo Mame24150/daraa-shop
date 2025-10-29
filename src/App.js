@@ -10,54 +10,108 @@ export default function App() {
   const [daraa, setDaraa] = useState(""); // الدراعة
   const [deliveryType, setDeliveryType] = useState(""); // التوصيل أو الحضور
   const [time, setTime] = useState(""); // المدة الزمنية
+  const [shapeImageUrl, setShapeImageUrl] = useState("");
+  const [modelImageUrl, setModelImageUrl] = useState("");
 
-  const merchantNumber = "46228085"; // رقم التاجر
+  const merchantNumber = "20034958"; // ✅ رقم التاجر الجديد
 
   const handleSendWhatsApp = () => {
     if (!type || !color || !shape || !stitch || !daraa || !deliveryType || !time) {
       return alert("الرجاء اختيار جميع الخيارات قبل الإرسال!");
     }
 
-    const message = `🩵 تفاصيل الطلب:\n- الدراعة: ${daraa}\n- النوع: ${type}\n- اللون: ${color}\n- الشكل: ${shape}\n- نوع الخياطة: ${stitch}\n- طريقة الاستلام: ${deliveryType}\n- المدة الزمنية: ${time}\n\n📞 رقم التاجر: ${merchantNumber}`;
+    // ✅ تضمين روابط الصور المختارة لتظهر في واتساب
+    const message = `🩵 تفاصيل الطلب:
+- الدراعة: ${daraa}
+- النوع: ${type}
+- اللون: ${color}
+- الشكل: ${shape}
+- نوع الخياطة: ${stitch}
+- طريقة الاستلام: ${deliveryType}
+- المدة الزمنية: ${time}
+
+📸 شكل الخنط:
+${shapeImageUrl}
+
+🧵 نموذج الخياطة:
+${modelImageUrl}`;
 
     const encodedMsg = encodeURIComponent(message);
     window.open(`https://wa.me/222${merchantNumber}?text=${encodedMsg}`, "_blank");
   };
 
   return (
-    <div style={{ fontFamily: "Cairo, sans-serif", padding: 20, backgroundColor: "#eef6f9", minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-      {/* Header مع شعار المتجر */}
+    <div
+      style={{
+        fontFamily: "Cairo, sans-serif",
+        padding: 20,
+        backgroundColor: "#eef6f9",
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+      }}
+    >
+      {/* Header مع شعارين */}
+      <header
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: 20,
+          backgroundColor: "#0078b7",
+          color: "white",
+          padding: 15,
+          borderRadius: 10,
+          boxShadow: "0 3px 6px rgba(0,0,0,0.2)",
+        }}
+      >
+        <img
+          src={`${process.env.PUBLIC_URL}/logo.png`}
+          alt="شعار المتجر 1"
+          style={{
+            width: 80,
+            height: 80,
+            borderRadius: "50%",
+            objectFit: "cover",
+          }}
+        />
 
-     <header style={{
-  textAlign: "center",
-  marginBottom: 20,
-  backgroundColor: "#0078b7",
-  color: "white",
-  padding: 15,
-  borderRadius: 10,
-  boxShadow: "0 3px 6px rgba(0,0,0,0.2)"
-}}>
-  <img 
-    src={`${process.env.PUBLIC_URL}/logo.png`} 
-    alt="شعار المتجر" 
-    style={{ 
-      width: 80, 
-      height: 80, 
-      marginBottom: 10,
-      borderRadius: "50%", // هذا يجعل الشعار دائريًا
-      objectFit: "cover"    // يحافظ على نسبة الصورة داخل الدائرة
-    }}
-  />
-  <h1>🩵 💎غـايتـك(𝒢𝒶𝒾𝓉𝒶𝓀)🩵 </h1>
-</header>
+        <h1 style={{ textAlign: "center", flex: 1 }}>
+          🩵 💎غـايتـك(𝒢𝒶𝒾𝓉𝒶𝓀)🩵
+        </h1>
+
+        <img
+          src={`${process.env.PUBLIC_URL}/logo2.png`}
+          alt="شعار المتجر 2"
+          style={{
+            width: 80,
+            height: 80,
+            borderRadius: "50%",
+            objectFit: "cover",
+          }}
+        />
+      </header>
 
       {/* قسم الاختيارات */}
       <div style={{ flex: 1 }}>
-        <div style={{ maxWidth: 600, margin: "0 auto", background: "white", borderRadius: 10, padding: 20, boxShadow: "0 2px 8px rgba(0,0,0,0.1)" }}>
-          
+        <div
+          style={{
+            maxWidth: 600,
+            margin: "0 auto",
+            background: "white",
+            borderRadius: 10,
+            padding: 20,
+            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+          }}
+        >
           {/* اختيار الدراعة */}
-          <h2>اختر الدراعه(𝓒𝓱𝓸𝓲𝓼𝓲𝓼𝓮𝔃 𝓵𝓪 𝓭𝓻𝓪𝓪ʿ𝓪🧵) </h2>
-          <select value={daraa} onChange={e => setDaraa(e.target.value)} style={{ width: "100%", padding: 8, marginBottom: 15 }}>
+          <h2>اختر الدراعه(𝓒𝓱𝓸𝓲𝓼𝓲𝓼𝓮𝔃 𝓵𝓪 𝓭𝓻𝓪𝓪ʿ𝓪🧵)</h2>
+          <select
+            value={daraa}
+            onChange={(e) => setDaraa(e.target.value)}
+            style={{ width: "100%", padding: 8, marginBottom: 15 }}
+          >
             <option value="">-- اختر --</option>
             <option value="دراعة 6م">دراعة 6م(6m)</option>
             <option value="دراعة 7,5م">دراعة 7,5م(7,5m)</option>
@@ -69,18 +123,30 @@ export default function App() {
 
           {/* اختيار نوع الخنط */}
           <h2>اختر نوع الخنط: (𝓱𝓸𝓲𝓼𝓲𝓼𝓮𝔃 𝓵𝓮 𝓽𝔂𝓹𝓮 𝓭𝓮 𝓴𝓱𝓷𝓪𝓽 ✨)</h2>
-          <select value={type} onChange={e => setType(e.target.value)} style={{ width: "100%", padding: 8, marginBottom: 15 }}>
+          <select
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            style={{ width: "100%", padding: 8, marginBottom: 15 }}
+          >
             <option value="">-- اختر --</option>
             <option value="أزبي">أزبي(Azbi)</option>
             <option value="گازنير">گازنير(Gaz Neire)</option>
             <option value="الباشا">الباشا(Albacha)</option>
             <option value="أفسنيگر">أفسنيگر(Avestyker)</option>
-            <option value="أخنّاط عرض 160م/أجمان/أشگه">أخنّاط عرض 160م/أجمان/أشگه</option>
+            <option value="السلطان">السلطان(Soultan)</option>
+            <option value="الملك">الملك(Almelik)</option>
+            <option value="أخنّاط عرض 160م/أجمان/أشگه">
+              أخنّاط عرض 160م/أجمان/أشگه
+            </option>
           </select>
 
           {/* اختيار اللون */}
           <h2>اختر اللون:(𝓼𝓮𝓵𝓮𝓬𝓽𝓲𝓸𝓷𝓷𝓮𝔃 𝓵𝓪 𝓬𝓸𝓾𝓵𝓮𝓾𝓻 🎨)</h2>
-          <select value={color} onChange={e => setColor(e.target.value)} style={{ width: "100%", padding: 8, marginBottom: 15 }}>
+          <select
+            value={color}
+            onChange={(e) => setColor(e.target.value)}
+            style={{ width: "100%", padding: 8, marginBottom: 15 }}
+          >
             <option value="">-- اختر --</option>
             <option value="أبيض">أبيض(Blanc)</option>
             <option value="أخضر">أخضر(Vert)</option>
@@ -96,12 +162,13 @@ export default function App() {
               return (
                 <img
                   key={i}
-                  src={`${process.env.PUBLIC_URL}/shapes/${i+1}.jpg`}
-                  alt={`شكل ${i+1}`}
-                  onClick={() => { 
-                    setHighlighted(i); 
-                    setShape(`شكل ${i+1}`); 
-                    setModalImage(`${process.env.PUBLIC_URL}/shapes/${i+1}.jpg`);
+                  src={`${process.env.PUBLIC_URL}/shapes/${i + 1}.jpg`}
+                  alt={`شكل ${i + 1}`}
+                  onClick={() => {
+                    setHighlighted(i);
+                    setShape(`شكل ${i + 1}`);
+                    setShapeImageUrl(`${window.location.origin}/shapes/${i + 1}.jpg`);
+                    setModalImage(`${process.env.PUBLIC_URL}/shapes/${i + 1}.jpg`);
                   }}
                   style={{
                     width: isHighlighted ? 180 : 100,
@@ -109,7 +176,10 @@ export default function App() {
                     objectFit: "cover",
                     borderRadius: 10,
                     cursor: "pointer",
-                    border: shape === `شكل ${i+1}` ? "3px solid #0078b7" : "1px solid gray",
+                    border:
+                      shape === `شكل ${i + 1}`
+                        ? "3px solid #0078b7"
+                        : "1px solid gray",
                     boxShadow: isHighlighted ? "0 0 20px #0078b7" : "none",
                     transition: "0.2s",
                   }}
@@ -117,11 +187,21 @@ export default function App() {
               );
             })}
           </div>
-          {shape && <p style={{ marginTop: 10, fontWeight: "bold" }}>✅ الشكل المختار: {shape}</p>}
+          {shape && (
+            <p style={{ marginTop: 10, fontWeight: "bold" }}>
+              ✅ الشكل المختار: {shape}
+            </p>
+          )}
 
           {/* اختيار نوع الخياطة */}
-          <h2>اختر نوع الخياطة:</h2>
-          <select value={stitch} onChange={e => setStitch(e.target.value)} style={{ width: "100%", padding: 8, marginBottom: 15 }}>
+          <h2>
+            اختر نوع الخياطة:(𝓒𝓱𝓸𝓲𝓼𝓲𝓼𝓮𝔃 𝓵𝓮 𝓽𝔂𝓹𝓮 𝓭𝓮 𝓬𝓸𝓾𝓽𝓾𝓻𝓮 ✂)
+          </h2>
+          <select
+            value={stitch}
+            onChange={(e) => setStitch(e.target.value)}
+            style={{ width: "100%", padding: 8, marginBottom: 15 }}
+          >
             <option value="">-- اختر --</option>
             <option value="داموا وتقلاگ">داموا وتقلاگ</option>
             <option value="سيمبل">سيمبل</option>
@@ -129,28 +209,118 @@ export default function App() {
             <option value="أخياطة للأيدي">أخياطة للأيدي</option>
           </select>
 
+          <h2
+            style={{
+              textAlign: "center",
+              fontFamily: "'Pinyon Script', cursive",
+              fontSize: "28px",
+              color: "#0078b7",
+              marginBottom: "20px",
+            }}
+          >
+            ✨ نماذج من الخياطة ✨ <br />
+            <span style={{ fontFamily: "'Caveat', cursive", fontSize: "24px" }}>
+              (𝓜𝓸𝓭𝑒̀𝓵𝑒𝓼 𝓭𝓮 𝓬𝓸𝓾𝓽𝓾𝓻𝓮 🧶)
+            </span>
+          </h2>
+
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 10,
+              justifyContent: "center",
+            }}
+          >
+            {[...Array(50)].map((_, i) => {
+              const isHighlighted = highlighted === i;
+              return (
+                <img
+                  key={i}
+                  src={`${process.env.PUBLIC_URL}/shapes/lolo/${i + 1}.jpg`}
+                  alt={`نموذج ${i + 1}`}
+                  onClick={() => {
+                    setHighlighted(i);
+                    setModelImageUrl(
+                      `${window.location.origin}/shapes/lolo/${i + 1}.jpg`
+                    );
+                    setModalImage(
+                      `${process.env.PUBLIC_URL}/shapes/lolo/${i + 1}.jpg`
+                    );
+                  }}
+                  style={{
+                    width: isHighlighted ? 180 : 100,
+                    height: isHighlighted ? 180 : 100,
+                    objectFit: "cover",
+                    borderRadius: "15px",
+                    cursor: "pointer",
+                    border:
+                      shape === `شكل ${i + 1}`
+                        ? "3px solid #0078b7"
+                        : "1px solid #ccc",
+                    boxShadow: isHighlighted ? "0 0 20px #0078b7" : "none",
+                    transition: "all 0.3s ease",
+                  }}
+                />
+              );
+            })}
+          </div>
+
+          {shape && (
+            <p
+              style={{
+                marginTop: 15,
+                fontWeight: "bold",
+                textAlign: "center",
+                color: "#0078b7",
+                fontSize: "18px",
+              }}
+            >
+              ✅ الشكل المختار: {shape}
+            </p>
+          )}
+
           {/* اختيار طريقة التسليم */}
-          <h2>طريقة استلام الطلب:</h2>
-          <select value={deliveryType} onChange={e => setDeliveryType(e.target.value)} style={{ width: "100%", padding: 8, marginBottom: 15 }}>
+          <h2>
+            طريقة استلام الطلب: (𝓜𝓮́𝓽𝓱𝓸𝓭𝓮 𝓭𝓮 𝓵𝓲𝓿𝓻𝓪𝓲𝓼𝓸𝓷 🚚)
+          </h2>
+          <select
+            value={deliveryType}
+            onChange={(e) => setDeliveryType(e.target.value)}
+            style={{ width: "100%", padding: 8, marginBottom: 15 }}
+          >
             <option value="">-- اختر --</option>
-            <option value="سوف يأتي لاستلامه بنفسه">سوف يأتي لاستلامه بنفسه</option>
-            <option value="يريد التوصيل">يريد التوصيل</option>
+            <option value="سوف يأتي لاستلامه بنفسه">
+              سوف استلمه بنفسي
+            </option>
+            <option value="يريد التوصيل">اريد التوصيل</option>
           </select>
 
           {/* المدة الزمنية */}
-          <h2>حدد المدة الزمنية (بالساعات أو الأيام):</h2>
+          <h2>
+            حدد المدة الزمنية (بالساعات أو الأيام): (𝓓𝓮́𝓽𝓮𝓻𝓶𝓲𝓷𝓮𝔃 𝓵𝓮 𝓭𝓮́𝓵𝓪𝓲 ⏰)
+          </h2>
           <input
             type="text"
             placeholder="مثلاً: خلال 3 أيام"
             value={time}
-            onChange={e => setTime(e.target.value)}
+            onChange={(e) => setTime(e.target.value)}
             style={{ width: "100%", padding: 8, marginBottom: 20 }}
           />
 
           {/* زر إرسال الطلب */}
           <button
             onClick={handleSendWhatsApp}
-            style={{ backgroundColor: "#0078b7", color: "#fff", padding: "12px 20px", borderRadius: 5, border: "none", cursor: "pointer", width: "100%", fontSize: 16 }}
+            style={{
+              backgroundColor: "#0078b7",
+              color: "#fff",
+              padding: "12px 20px",
+              borderRadius: 5,
+              border: "none",
+              cursor: "pointer",
+              width: "100%",
+              fontSize: 16,
+            }}
           >
             🛒 أرسل الطلب للتاجر عبر WhatsApp
           </button>
@@ -158,8 +328,21 @@ export default function App() {
       </div>
 
       {/* Footer */}
-      <footer style={{ textAlign: "center", marginTop: 30, padding: 15, backgroundColor: "#0078b7", color: "white", borderRadius: 10, boxShadow: "0 3px 6px rgba(0,0,0,0.2)" }}>
-        📞 رقم التاجر للتواصل: <span style={{ fontWeight: "bold", fontSize: 18 }}>{merchantNumber}</span>
+      <footer
+        style={{
+          textAlign: "center",
+          marginTop: 30,
+          padding: 15,
+          backgroundColor: "#0078b7",
+          color: "white",
+          borderRadius: 10,
+          boxShadow: "0 3px 6px rgba(0,0,0,0.2)",
+        }}
+      >
+        📞 رقم التاجر للتواصل:{" "}
+        <span style={{ fontWeight: "bold", fontSize: 18 }}>
+          {merchantNumber}
+        </span>
       </footer>
 
       {/* نافذة تكبير الصورة */}
