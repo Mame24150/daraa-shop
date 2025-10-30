@@ -63,7 +63,7 @@ ${modelImageUrl}`;
       <div style={{ flex: 1, maxWidth: 600, margin: "0 auto", background: "white", borderRadius: 10, padding: 20, boxShadow: "0 2px 8px rgba(0,0,0,0.1)" }}>
         
         {/* اختيار الدراعة */}
-        <h2>(𝓒𝓱𝓸𝓲𝓼𝓲𝓼𝓮𝔃 𝓵𝓮 𝓽𝓪𝓲𝓵𝓵𝓮 𝓭𝓮 𝓵𝓪 𝓭𝓻𝓪𝓪ʿ𝓪 ✨)</h2>
+        <h2>اختر حجم الدراعه(𝓒𝓱𝓸𝓲𝓼𝓲𝓼𝓮𝔃 𝓵𝓮 𝓽𝓪𝓲𝓵𝓵𝓮 𝓭𝓮 𝓵𝓪 𝓭𝓻𝓪𝓪ʿ𝓪 ✨)</h2>
         <select value={daraa} onChange={(e) => setDaraa(e.target.value)} style={{ width: "100%", padding: 8, marginBottom: 15 }}>
           <option value="">-- اختر --</option>
           <option value="دراعة 6م">دراعة 6م(6m)</option>
