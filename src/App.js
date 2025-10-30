@@ -15,6 +15,7 @@ export default function App() {
   const [time, setTime] = useState("");
   const [shapeImageUrl, setShapeImageUrl] = useState("");
   const [modelImageUrl, setModelImageUrl] = useState("");
+  const [localImage, setLocalImage] = useState(null); // لإضافة الصورة المحلية
 
   const merchantNumber = "44865953"; // رقم التاجر الجديد
 
@@ -23,7 +24,7 @@ export default function App() {
       return alert("الرجاء اختيار جميع الخيارات قبل الإرسال!");
     }
 
-    const message = `🩵 تفاصيل الطلب:
+    let message = `🩵 تفاصيل الطلب:
 - الدراعة: ${daraa}
 - النوع: ${type}
 - اللون: ${color}
@@ -38,6 +39,13 @@ ${shapeImageUrl}
 ${modelImageUrl}`;
 
     const encodedMsg = encodeURIComponent(message);
+
+    if (localImage) {
+      alert(
+        "سيتم فتح WhatsApp، يرجى إضافة الصورة المرفقة يدويًا بعد فتح المحادثة."
+      );
+    }
+
     window.open(`https://wa.me/222${merchantNumber}?text=${encodedMsg}`, "_blank");
   };
 
@@ -55,7 +63,7 @@ ${modelImageUrl}`;
       <div style={{ flex: 1, maxWidth: 600, margin: "0 auto", background: "white", borderRadius: 10, padding: 20, boxShadow: "0 2px 8px rgba(0,0,0,0.1)" }}>
         
         {/* اختيار الدراعة */}
-        <h2>اختر الدراعه</h2>
+        <h2>(𝓒𝓱𝓸𝓲𝓼𝓲𝓼𝓮𝔃 𝓵𝓮 𝓽𝓪𝓲𝓵𝓵𝓮 𝓭𝓮 𝓵𝓪 𝓭𝓻𝓪𝓪ʿ𝓪 ✨)</h2>
         <select value={daraa} onChange={(e) => setDaraa(e.target.value)} style={{ width: "100%", padding: 8, marginBottom: 15 }}>
           <option value="">-- اختر --</option>
           <option value="دراعة 6م">دراعة 6م(6m)</option>
@@ -67,20 +75,20 @@ ${modelImageUrl}`;
         </select>
 
         {/* نوع الخنط */}
-        <h2>اختر نوع الخنط</h2>
+        <h2>اختر نوع الخنط(𝓒𝓱𝓸𝓲𝓼𝓲𝓼𝓮𝔃 𝓵𝓮 𝓽𝔂𝓹𝓮 𝓭𝓮 𝓴𝓱𝓷𝓪𝓽🧵)</h2>
         <select value={type} onChange={(e) => setType(e.target.value)} style={{ width: "100%", padding: 8, marginBottom: 15 }}>
           <option value="">-- اختر --</option>
           <option value="أزبي">أزبي(Azbi)</option>
           <option value="گازنير">گازنير(Gaz Neire)</option>
           <option value="الباشا">الباشا(Albacha)</option>
-          <option value="أفسنيگر">أفسنيگر(Avestyker)</option>
-          <option value="السلطان">السلطان(Soultan)</option>
-          <option value="الملك">الملك(Almelik)</option>
-          <option value="أخنّاط عرض 160م/أجمان/أشگه">أخنّاط عرض 160م/أجمان/أشگه</option>
+          <option value="أفسنيگر">ألفسنيگر(Avestyker)</option>
+          <option value="السلطان">أخناط عرض 160 ( السلطان _ الملك _ أوزكا)</option>
+          <option value="أخنّاط عرض 160م/أجمان/أشگه">الشكه</option>
+           <option value="أخنّاط عرض 160م/أجمان/أشگه">اجمان</option>
         </select>
 
         {/* اللون */}
-        <h2>اختر اللون</h2>
+        <h2>اختر اللون(𝓢𝓮́𝓵𝓮𝓬𝓽𝓲𝓸𝓷𝓷𝓮𝔃 𝓵𝓪 𝓬𝓸𝓾𝓵𝓮𝓾𝓻 🎨)</h2>
         <select value={color} onChange={(e) => setColor(e.target.value)} style={{ width: "100%", padding: 8, marginBottom: 15 }}>
           <option value="">-- اختر --</option>
           <option value="أبيض">أبيض</option>
@@ -90,7 +98,7 @@ ${modelImageUrl}`;
         </select>
 
         {/* اختيار شكل الخنط */}
-        <h2>اختر شكل الخنط</h2>
+        <h2>اختر شكل الخنط(𝓢𝓮́𝓵𝓮𝓬𝓽𝓲𝓸𝓷𝓷𝓮𝔃 𝓵𝓮 𝓼𝓱𝓪𝓹𝓮🖌)</h2>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
           {[...Array(91)].map((_, i) => {
             const isHighlighted = highlightedShape === i;
@@ -121,7 +129,7 @@ ${modelImageUrl}`;
         </div>
 
         {/* نوع الخياطة */}
-        <h2>اختر نوع الخياطة</h2>
+        <h2>اختر نوع الخياطة(𝓒𝓱𝓸𝓲𝓼𝓲𝓼𝓮𝔃 𝓵𝓮 𝓽𝔂𝓹𝓮 𝓭𝓮 𝓬𝓸𝓾𝓽𝓾𝓻𝓮 ✂)</h2>
         <select value={stitch} onChange={(e) => setStitch(e.target.value)} style={{ width: "100%", padding: 8, marginBottom: 15 }}>
           <option value="">-- اختر --</option>
           <option value="داموا وتقلاگ">داموا وتقلاگ</option>
@@ -162,8 +170,9 @@ ${modelImageUrl}`;
           })}
         </div>
 
+        
         {/* طريقة الاستلام */}
-        <h2>طريقة استلام الطلب</h2>
+        <h2>طريقة استلام الطلب(𝓢𝓮́𝓵𝓮𝓬𝓽𝓲𝓸𝓷𝓷𝓮𝔃 𝓵𝓮 𝓶𝓸𝓭𝓮 𝓭𝓮 𝓵𝓲𝓿𝓻𝓪𝓲𝓼𝓸𝓷 📦)</h2>
         <select value={deliveryType} onChange={(e) => setDeliveryType(e.target.value)} style={{ width: "100%", padding: 8, marginBottom: 15 }}>
           <option value="">-- اختر --</option>
           <option value="سوف يأتي لاستلامه بنفسه">سوف استلمه بنفسي</option>
@@ -171,7 +180,7 @@ ${modelImageUrl}`;
         </select>
 
         {/* المدة الزمنية */}
-        <h2>حدد المدة الزمنية</h2>
+        <h2>حدد المدة الزمنية(𝓢𝓮́𝓵𝓮𝓬𝓽𝓲𝓸𝓷𝓷𝓮𝔃 𝓵𝓪 𝓭𝓾𝓻𝓮́𝓮 ⏱)</h2>
         <input type="text" placeholder="مثلاً: خلال 3 أيام" value={time} onChange={(e) => setTime(e.target.value)} style={{ width: "100%", padding: 8, marginBottom: 20 }} />
 
         {/* زر الإرسال */}
